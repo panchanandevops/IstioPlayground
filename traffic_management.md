@@ -21,4 +21,4 @@ For simplicity, we'll initially focus on understanding a few key concepts. Later
 
 ### 5. **Traffic Shifting:**
    - Traffic shifting takes the gradual approach a step further. Let's say you've tested the new version, and it's ready for more action. With traffic shifting, you can smoothly transition the traffic distribution. Maybe start with 10% on the new version and slowly shift more traffic in that direction until the transition is complete.
-
+ 
