@@ -60,37 +60,37 @@ k3d cluster create my-cluster --agents 2
 
 Before installing Istio using Helm, make sure to add the official Istio Helm chart repository. Use the following command:
 
-```bash
-helm repo add istio https://istio.io/latest/docs/ops/distribution/helm/
-```
+  ```bash
+  helm repo add istio https://istio.io/latest/docs/ops/distribution/helm/
+  ```
 
 After adding the repository, you can proceed with installing Istio:
 
-```bash
-helm install istio-lab istio/istio
-```
+  ```bash
+  helm install istio-lab istio/istio
+  ```
 ##  Install istioctl
    - To install istioctl on Linux, you can use the following steps. These instructions assume you are using a Bash shell.
-    
-    ```bash
-    # Download the latest release of istioctl
-    curl -L https://istio.io/downloadIstio | sh -
+      
+      ```bash
+      # Download the latest release of istioctl
+      curl -L https://istio.io/downloadIstio | sh -
 
-    # Navigate to the Istio directory
-    cd istio-<VERSION>
+      # Navigate to the Istio directory
+      cd istio-<VERSION>
 
-    # Add the istioctl to your PATH
-    export PATH=$PWD/bin:$PATH
+      # Add the istioctl to your PATH
+      export PATH=$PWD/bin:$PATH
 
-    # Verify the installation
-    istioctl version
-    ```
+      # Verify the installation
+      istioctl version
+      ```
     - Make sure to replace <VERSION> with the specific version of Istio you downloaded.
     - If you want to make the change permanent, you can add the export line to your shell profile configuration file.
 
-    ```bash
-    echo 'export PATH=$PWD/bin:$PATH' >> ~/.bashrc
-    ``` 
+      ```bash
+      echo 'export PATH=$PWD/bin:$PATH' >> ~/.bashrc
+      ``` 
 
 ## Enable Automatic Sidecar Injection
 
