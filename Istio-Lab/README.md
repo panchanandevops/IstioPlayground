@@ -1,3 +1,33 @@
+## Table of Contents
+
+- [Istio Lab](#istio-lab)
+  - [install K3D](#install-k3d)
+    - [Create k3d cluster with one master and 2 worker nodes:](#create-k3d-cluster-with-one-master-and-2-worker-nodes)
+  - [install istio using helm:](#install-istio-using-helm)
+  - [Install istioctl](#install-istioctl)
+  - [Enable Automatic Sidecar Injection](#enable-automatic-sidecar-injection)
+  - [Deploy Web Application](#deploy-web-application)
+    - [Kubernetes YAML Files for `Web Frontend`:](#kubernetes-yaml-files-for-web-frontend)
+    - [Kubernetes YAML Files for `Customers Backend`:](#kubernetes-yaml-files-for-customers-backend)
+  - [Istio Ingress Gateway](#istio-ingress-gateway)
+  - [Configuring Ingress](#configuring-ingress)
+    - [Create a Gateway Resource](#create-a-gateway-resource)
+    - [Create a VirtualService Resource For `web-frontend`](#create-a-virtualservice-resource-for-web-frontend)
+- [Traffic Management](#traffic-management)
+  - [Traffic Splitting](#traffic-splitting)
+  - [Deploying customers (V1)](#deploying-customers-v1)
+  - [DestinationRules for `customers backend`](#destinationrules-for-customers-backend)
+  - [VirtualServices for `customers backend`](#virtualservices-for-customers-backend)
+  - [Finally deploy customers (v2)](#finally-deploy-customers-v2)
+    - [Note:](#note)
+  - [Route to customers, (v2)](#route-to-customers-v2)
+    - [Expose "debug" traffic to v2](#expose-debug-traffic-to-v2)
+      - [Test the debug VS](#test-the-debug-vs)
+  - [Now Canary Deployment for our (V2) customers backend](#now-canary-deployment-for-our-v2-customers-backend)
+  - [Traffic Shifting](#traffic-shifting)
+  - [Acknowledgment](#acknowledgment)
+
+
 # Istio Lab
 
 In this lab, our primary steps involve:
@@ -5,33 +35,10 @@ In this lab, our primary steps involve:
 1. **Istio Installation:**
    - Initially, we'll install Istio within our k3d cluster, setting up the foundation for service mesh capabilities.
 
-2. **install istioctl**
-   - To install istioctl on Linux, you can use the following steps. These instructions assume you are using a Bash shell.
-    
-    ```bash
-    # Download the latest release of istioctl
-    curl -L https://istio.io/downloadIstio | sh -
-
-    # Navigate to the Istio directory
-    cd istio-<VERSION>
-
-    # Add the istioctl to your PATH
-    export PATH=$PWD/bin:$PATH
-
-    # Verify the installation
-    istioctl version
-    ```
-    - Make sure to replace <VERSION> with the specific version of Istio you downloaded.
-    - If you want to make the change permanent, you can add the export line to your shell profile configuration file.
-
-    ```bash
-    echo 'export PATH=$PWD/bin:$PATH' >> ~/.bashrc
-    ``` 
-
-3. **Web Application Deployment:**
+2. **Web Application Deployment:**
    - Following Istio installation, we'll deploy our web application into the cluster, preparing it for enhanced networking and traffic management.
 
-4. **Istio Configuration:**
+3. **Istio Configuration:**
    - With the application in place, we'll proceed to configure Istio components, including sidecar injection, gateway setup, virtual service definition, destination rule establishment, and fine-tuning traffic behavior through strategies like splitting and shifting.
 
 These steps will enable us to leverage Istio's powerful features for improved service communication and traffic control within our Kubernetes environment.
@@ -62,8 +69,28 @@ After adding the repository, you can proceed with installing Istio:
 ```bash
 helm install istio-lab istio/istio
 ```
+##  Install istioctl
+   - To install istioctl on Linux, you can use the following steps. These instructions assume you are using a Bash shell.
+    
+    ```bash
+    # Download the latest release of istioctl
+    curl -L https://istio.io/downloadIstio | sh -
 
-Certainly! I'll integrate the provided YAML code into the updated instructions:
+    # Navigate to the Istio directory
+    cd istio-<VERSION>
+
+    # Add the istioctl to your PATH
+    export PATH=$PWD/bin:$PATH
+
+    # Verify the installation
+    istioctl version
+    ```
+    - Make sure to replace <VERSION> with the specific version of Istio you downloaded.
+    - If you want to make the change permanent, you can add the export line to your shell profile configuration file.
+
+    ```bash
+    echo 'export PATH=$PWD/bin:$PATH' >> ~/.bashrc
+    ``` 
 
 ## Enable Automatic Sidecar Injection
 

@@ -1,3 +1,18 @@
+
+
+# Table of Contents
+
+- [Table of Contents](#table-of-contents)
+  - [Istio Ingress Gateway](#istio-ingress-gateway)
+  - [VirtualService](#virtualservice)
+    - [`VirtualService` Key Components:](#virtualservice-key-components)
+  - [DestinationRule](#destinationrule)
+
+
+    
+
+
+
 ## Istio Ingress Gateway
 
 In Istio, the Gateway Custom Resource Definition (CRD) is a Kubernetes resource that defines how external traffic should enter the service mesh. The Gateway CRD allows users to configure and manage the behavior of the Istio Ingress Gateway.
