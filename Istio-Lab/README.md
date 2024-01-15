@@ -85,8 +85,8 @@ After adding the repository, you can proceed with installing Istio:
       # Verify the installation
       istioctl version
       ```
-    - Make sure to replace <VERSION> with the specific version of Istio you downloaded.
-    - If you want to make the change permanent, you can add the export line to your shell profile configuration file.
+  - Make sure to replace <VERSION> with the specific version of Istio you downloaded.
+  - If you want to make the change permanent, you can add the export line to your shell profile configuration file.
 
       ```bash
       echo 'export PATH=$PWD/bin:$PATH' >> ~/.bashrc
