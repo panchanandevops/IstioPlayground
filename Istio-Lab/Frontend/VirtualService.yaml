@@ -1,0 +1,16 @@
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: web-frontend
+spec:
+  hosts:
+    - "*" # Matches all hosts
+  gateways:
+    - frontend-gateway # Associates with the frontend-gateway
+  http:
+    - route:
+        - destination:
+            host: web-frontend.default.svc.cluster.local
+            port:
+              number: 80 # Routes to port 80 of the specified host

@@ -1,0 +1,57 @@
+---
+# Service Account for the web-frontend application
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: web-frontend
+
+---
+# Deployment configuration for the web-frontend application
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-frontend
+  labels:
+    app: web-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: web-frontend
+  template:
+    metadata:
+      labels:
+        app: web-frontend
+        version: v1
+    spec:
+      # Assign the ServiceAccount to the Pod
+      serviceAccountName: web-frontend
+      containers:
+        - name: web
+          # Docker image for the web-frontend application
+          image: gcr.io/tetratelabs/web-frontend:1.0.0
+          # Always pull the latest image
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+          env:
+            - name: CUSTOMER_SERVICE_URL
+              # URL for the customer service within the Kubernetes cluster
+              value: "http://customers.default.svc.cluster.local"
+
+---
+# Service configuration for the web-frontend application
+kind: Service
+apiVersion: v1
+metadata:
+  name: web-frontend
+  labels:
+    app: web-frontend
+spec:
+  selector:
+    app: web-frontend
+  ports:
+    - port: 80
+      name: http
+      # Expose the containerPort 8080 of the Pods
+      targetPort: 8080

@@ -1,0 +1,21 @@
+---
+# This YAML defines an Istio Gateway named frontend-gateway for handling incoming HTTP traffic.
+
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: frontend-gateway
+spec:
+  # Selector for the Istio Ingress Gateway
+  selector:
+    istio: ingressgateway
+  # List of servers and their configurations
+  servers:
+    - # Port configuration for HTTP
+      port:
+        number: 80
+        name: http
+        protocol: HTTP
+      # Hosts to which this gateway is applicable
+      hosts:
+        - "*"

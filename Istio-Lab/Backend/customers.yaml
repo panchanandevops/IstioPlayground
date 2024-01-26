@@ -1,0 +1,54 @@
+---
+# Service Account for the customers application
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: customers
+
+---
+# Deployment configuration for the customers application (version: v1)
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: customers-v1
+  labels:
+    app: customers
+    version: v1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: customers
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: customers
+        version: v1
+    spec:
+      # Assign the ServiceAccount to the Pod
+      serviceAccountName: customers
+      containers:
+        - image: gcr.io/tetratelabs/customers:1.0.0
+          # Always pull the latest image
+          imagePullPolicy: Always
+          name: svc
+          ports:
+            - containerPort: 3000
+
+---
+# Service configuration for the customers application
+kind: Service
+apiVersion: v1
+metadata:
+  name: customers
+  labels:
+    app: customers
+spec:
+  selector:
+    app: customers
+  ports:
+    - port: 80
+      name: http
+      # Expose the containerPort 3000 of the Pods
+      targetPort: 3000
